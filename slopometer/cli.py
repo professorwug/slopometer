@@ -22,6 +22,8 @@ def main(
 ):
     "Score markdown against the aai reference-prose rules"
     from json import dumps
+    from slopometer.house import apply_profile
+    apply_profile()  # this fork scores against the house profile unless $SLOPOMETER_PROFILE says otherwise
     from slopometer.score import score_path, score_text
     res = score_path(path) if path else score_text(sys.stdin.read())
     if json: print(dumps(dict(density=res.density, worst=res.worst, words=res.words,
